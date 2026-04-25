@@ -1,0 +1,14 @@
+# Python and basic project artifacts
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+env/
+.env
+
+# Database file
+messages.db
+
+# Other
+.DS_Store
