@@ -22,6 +22,7 @@ messages.db-journal
 # Internal Project Logs (Not for tracking)
 status_log.txt
 fix.md
+project_plan.md
 
 # IDEs
 .vscode/
