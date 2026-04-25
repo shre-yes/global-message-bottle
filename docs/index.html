@@ -3,280 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Message In A Bottle</title>
-    <!-- Use Inter font for a modern look -->
+    <title>Global Message In A Bottle | Pyrate Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --text-color: #f8fafc;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --primary-accent: #3b82f6;
-            --primary-hover: #2563eb;
-            --glass-blur: blur(12px);
+            --paper-color: #f4e4bc;
+            --rust-color: #8b4513;
+            --wood-dark: #2c1b0e;
+            --gold-accent: #d4af37;
+            --ink-color: #1a0f00;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #020617, #0f172a);
-            color: var(--text-color);
+            font-family: 'Cormorant Garamond', serif;
+            background: radial-gradient(circle at center, #1a2a3a 0%, #0a0f1a 100%),
+                        url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            color: var(--paper-color);
             min-height: 100vh;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem;
-            box-sizing: border-box;
+            padding: 1rem;
+            overflow-x: hidden;
         }
 
-        /* Fluid Typography and Gradients */
         h1 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Pirata One', system-ui;
+            font-size: 3.5rem;
+            color: var(--gold-accent);
+            text-shadow: 2px 2px 4px black, 0 0 10px rgba(212, 175, 55, 0.4);
+            margin-bottom: 0px;
+            letter-spacing: 2px;
         }
 
         .subtitle {
-            font-weight: 300;
-            color: #94a3b8;
+            font-style: italic;
+            color: #a3947c;
+            margin-top: 0;
             margin-bottom: 2rem;
-            text-align: center;
         }
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 900px;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            align-items: center;
         }
 
-        /* Glassmorphism effects */
-        .compose-section, .messages-section {
-            background: var(--card-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        /* --- THE TRUE BOTTLE SHAPE (HORIZONTAL) --- */
+        .bottle-container {
+            position: relative;
+            width: 500px;
+            height: 280px;
+            margin: 4rem auto 4rem;
+            background: rgba(180, 220, 255, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            /* Flat/Rounded Base on Left, Tapered Neck on Right */
+            border-radius: 20px 200px 200px 20px / 20px 140px 140px 20px;
+            box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.1),
+                        0 25px 50px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 60px 20px 30px; /* Offset padding to keep text in the belly */
+            backdrop-filter: blur(6px);
+            animation: float 6s ease-in-out infinite;
         }
 
+        /* Bottle Neck (Right Side Attachment) */
+        .bottle-container::after {
+            content: '';
+            position: absolute;
+            right: -65px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 55px;
+            background: rgba(180, 220, 255, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-left: none; /* Merges with the tapered body */
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Cork (Right Side) */
+        .cork {
+            position: absolute;
+            right: -85px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35px;
+            height: 45px;
+            background: #734d26;
+            border-radius: 0 5px 5px 0;
+            box-shadow: inset -5px 0 10px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        /* Glass Glint */
+        .bottle-container::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            width: 75%;
+            height: 8%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* The Message Scroll inside */
         textarea {
-            width: 100%;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            color: var(--text-color);
-            padding: 1rem;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 100px;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-        }
-
-        button {
-            margin-top: 1rem;
-            background-color: var(--primary-accent);
-            color: white;
+            width: 85%;
+            height: 130px;
+            background: var(--paper-color);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            background-image: repeating-linear-gradient(rgba(0,0,0,0) 0, rgba(0,0,0,0) 24px, rgba(139, 69, 19, 0.1) 25px);
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            padding: 15px;
+            color: var(--ink-color);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
             font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-radius: 3px;
+            resize: none;
+            line-height: 25px;
+            transform: rotate(-1.5deg);
+        }
+
+        textarea:focus { outline: none; }
+
+        #submit_btn {
+            margin-top: 1.2rem;
+            background: var(--wood-dark);
+            color: var(--gold-accent);
+            border: 2px solid var(--gold-accent);
+            font-family: 'Pirata One', cursive;
+            font-size: 1.3rem;
+            padding: 0.5rem 1.4rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform: rotate(0.5deg);
         }
 
-        button:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
+        #submit_btn:hover {
+            background: var(--gold-accent);
+            color: var(--wood-dark);
+            transform: scale(1.05) rotate(0deg);
         }
 
-        button:active {
-            transform: translateY(0);
+        /* --- MESSAGES SECTION --- */
+        .messages-section {
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 600px;
         }
 
-        /* Message Display Styling */
         .message-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            animation: fadeIn 0.5s ease-out;
-            word-wrap: break-word;
+            background-color: var(--paper-color);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            color: var(--ink-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 2px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-0.5deg);
+            border: 1px solid rgba(139, 69, 19, 0.2);
         }
 
-        .message-card:last-child {
-            margin-bottom: 0;
+        .message-card:nth-child(even) { transform: rotate(1deg); }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: #3d2b1f;
+            border-radius: 50%;
         }
 
         .message-content {
-            margin: 0 0 0.5rem 0;
-            line-height: 1.5;
-            white-space: pre-wrap; /* Keeps breaks formatting */
+            font-size: 1.25rem;
+            line-height: 1.4;
+            margin: 0 0 1rem 0;
+            white-space: pre-wrap;
         }
 
         .message-meta {
-            font-size: 0.8rem;
-            color: #64748b;
+            font-family: 'Pirata One', cursive;
+            font-size: 1.1rem;
+            color: var(--rust-color);
             text-align: right;
+            border-top: 1px dashed rgba(139, 69, 19, 0.3);
+            padding-top: 0.5rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .alert-text {
-            color: #ef4444; 
-            font-size: 0.9rem;
-            text-align: center;
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(1.5deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <header style="text-align:center;">
             <h1>Message In A Bottle</h1>
-            <p class="subtitle">An anonymous wall for the world</p>
+            <p class="subtitle">Cast yer words to the seven seas</p>
         </header>
 
         <section class="compose-section">
-            <textarea id="message_input" placeholder="What's on your mind?..." aria-label="Message Context"></textarea>
-            <button id="submit_btn">Cast into the Sea</button>
-        </section>
-
-        <section class="messages-section">
-            <div id="messages_list">
-                <!-- Javascript will inject entries here -->
+            <div class="bottle-container">
+                <div class="cork"></div>
+                <textarea id="message_input" placeholder="Scrawl yer message here..." aria-label="Message Context"></textarea>
+                <button id="submit_btn">Cast to Sea</button>
             </div>
         </section>
+
+        <div id="messages_list" class="messages-section">
+            <!-- Messages appear here -->
+        </div>
     </div>
 
     <script>
-        // Use localhost for Phase 1. 
-        // This will be replaced by the VM's public IP Address in Phase 5.
         const API_URL = "http://140.245.215.140:8000";
 
         const messageInput = document.getElementById("message_input");
         const submitBtn = document.getElementById("submit_btn");
         const messagesList = document.getElementById("messages_list");
 
-        // Formats timestamps into readable localized format
         function format_date(date_str) {
-            const date = new Date(date_str + "Z"); // Append Z to DB string to treat as UTC
-            return new Intl.DateTimeFormat('en-US', {
+            const date = new Date(date_str + "Z");
+            return new Intl.DateTimeFormat('en-GB', {
                 dateStyle: 'medium',
                 timeStyle: 'short'
             }).format(date);
         }
 
-        // Basic HTML escape to prevent XSS
         function escape_html(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                }[tag])
-            );
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+            }[tag]));
         }
 
-        // DOM constructor for a newly minted message card
         function build_message_card(msg) {
             const card = document.createElement("div");
             card.className = "message-card";
-            
             const content = document.createElement("p");
             content.className = "message-content";
             content.innerHTML = escape_html(msg.content);
-
             const meta = document.createElement("div");
             meta.className = "message-meta";
-            meta.textContent = format_date(msg.timestamp);
-
+            meta.textContent = "~ " + format_date(msg.timestamp);
             card.appendChild(content);
             card.appendChild(meta);
             return card;
         }
 
-        // Retrieve and render messages from the FastAPI backend
         async function fetch_messages() {
             try {
                 const response = await fetch(`${API_URL}/messages`);
                 if (!response.ok) throw new Error("Fetch failed");
-                
                 const payload = await response.json();
                 messagesList.innerHTML = "";
-                
                 if (payload.length === 0) {
-                    messagesList.innerHTML = "<p style='text-align:center; color:#64748b;'>No messages yet. Be the first!</p>";
+                    messagesList.innerHTML = "<p style='text-align:center; color:#a3947c;'>The sea is quiet. No messages washed ashore.</p>";
                     return;
                 }
-                
-                payload.forEach(msg => {
-                    messagesList.appendChild(build_message_card(msg));
-                });
+                payload.forEach(msg => messagesList.appendChild(build_message_card(msg)));
             } catch (error) {
                 console.error("Fetch API error:", error);
-                messagesList.innerHTML = `<p class="alert-text">Could not connect to backend.</p>`;
+                messagesList.innerHTML = `<p style="color:#ff4444;text-align:center;">The Kraken has severed the connection!</p>`;
             }
         }
 
-        // Transmit text to creation endpoint and refresh views
         async function submit_message() {
             const text = messageInput.value.trim();
             if (!text) return;
-
             submitBtn.disabled = true;
-            submitBtn.textContent = "Casting...";
-
+            submitBtn.textContent = "Sealing...";
             try {
                 const response = await fetch(`${API_URL}/messages`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ content: text })
                 });
-
                 if (!response.ok) throw new Error("Post failed");
-
                 messageInput.value = "";
                 await fetch_messages();
             } catch (error) {
-                console.error("Create API error:", error);
-                alert("Failed to send message. Is the backend running on port 8000?");
+                alert("Failed to seal the bottle.");
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = "Cast into the Sea";
+                submitBtn.textContent = "Cast to Sea";
             }
         }
 
-        // Attach interactive bindings
         submitBtn.addEventListener("click", submit_message);
-        
-        messageInput.addEventListener("keydown", (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-                submit_message();
-            }
-        });
-
-        // Initialize state on page load
         fetch_messages();
     </script>
 </body>

@@ -1,14 +1,37 @@
-# Python and basic project artifacts
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
-venv/
+*.py[cod]
+*$py.class
+
+# Environments
 .venv/
 env/
-.env
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-# Database file
+# Database
 messages.db
+messages.db-journal
 
-# Other
+# Secrets & Environment variables
+.env
+.env.*
+
+# Internal Project Logs (Not for tracking)
+status_log.txt
+fix.md
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Project Specific
+docs/assets/bottle.png.bak
